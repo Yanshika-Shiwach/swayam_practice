@@ -1,0 +1,22 @@
+#include <string>
+#include <unordered_map>
+using namespace std;
+
+class Solution {
+public:
+    char maxOccurringChar(const string& s) {
+        unordered_map<char, int> freq;
+        for (char c : s) {
+            freq[c]++;
+        }
+        char maxChar = s[0];
+        int maxCount = freq[maxChar];
+        for (auto& p : freq) {
+            if (p.second > maxCount) {
+                maxChar = p.first;
+                maxCount = p.second;
+            }
+        }
+        return maxChar;
+    }
+};
