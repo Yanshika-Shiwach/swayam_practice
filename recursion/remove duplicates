@@ -1,0 +1,19 @@
+class Solution {
+public:
+    void removeDuplicatesRecursive(const vector<int>& arr, int index, unordered_set<int>& seen, vector<int>& result) {
+        if (index == arr.size())
+            return;
+        if (seen.find(arr[index]) == seen.end()) {
+            result.push_back(arr[index]);
+            seen.insert(arr[index]);
+        }
+        removeDuplicatesRecursive(arr, index + 1, seen, result);
+    }
+
+    vector<int> removeDuplicates(const vector<int>& arr) {
+        vector<int> result;
+        unordered_set<int> seen;
+        removeDuplicatesRecursive(arr, 0, seen, result);
+        return result;
+    }
+};
