@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int countWords(const string& s) {
+        int count = 0;
+        bool inWord = false;
+        for (char c : s) {
+            if (isspace(c)) {
+                if (inWord) {
+                    count++;
+                    inWord = false;
+                }
+            } else {
+                inWord = true;
+            }
+        }
+        if (inWord) count++;
+        return count;
+    }
+};
