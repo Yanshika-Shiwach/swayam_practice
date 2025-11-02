@@ -1,0 +1,12 @@
+class Solution {
+public:
+    string removeNonAlphabets(const string& s) {
+        string result;
+        for(char c : s) {
+            if (isalpha(c)) {
+                result.push_back(c);
+            }
+        }
+        return result;
+    }
+};
