@@ -1,0 +1,49 @@
+#include <vector>
+using namespace std;
+
+class ArrayOperations {
+public:
+    vector<int> unionSorted(const vector<int>& a, const vector<int>& b) {
+        vector<int> result;
+        int i = 0, j = 0, m = a.size(), n = b.size();
+        while (i < m && j < n) {
+            if (a[i] < b[j]) {
+                if (result.empty() || result.back() != a[i]) result.push_back(a[i]);
+                i++;
+            } else if (a[i] > b[j]) {
+                if (result.empty() || result.back() != b[j]) result.push_back(b[j]);
+                j++;
+            } else {
+                if (result.empty() || result.back() != a[i]) result.push_back(a[i]);
+                i++;
+                j++;
+            }
+        }
+        while(i < m) {
+            if (result.empty() || result.back() != a[i]) result.push_back(a[i]);
+            i++;
+        }
+        while(j < n) {
+            if (result.empty() || result.back() != b[j]) result.push_back(b[j]);
+            j++;
+        }
+        return result;
+    }
+
+    vector<int> intersectionSorted(const vector<int>& a, const vector<int>& b) {
+        vector<int> result;
+        int i = 0, j = 0, m = a.size(), n = b.size();
+        while (i < m && j < n) {
+            if (a[i] < b[j]) {
+                i++;
+            } else if (a[i] > b[j]) {
+                j++;
+            } else {
+                if (result.empty() || result.back() != a[i]) result.push_back(a[i]);
+                i++;
+                j++;
+            }
+        }
+        return result;
+    }
+};
