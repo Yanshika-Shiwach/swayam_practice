@@ -1,0 +1,14 @@
+#include <string>
+#include <unordered_map>
+using namespace std;
+
+class Solution {
+public:
+    unordered_map<char, int> charFrequency(const string& s) {
+        unordered_map<char, int> freq;
+        for (char c : s) {
+            freq[c]++;
+        }
+        return freq;
+    }
+};
