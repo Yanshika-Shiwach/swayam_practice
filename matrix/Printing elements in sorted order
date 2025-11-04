@@ -1,0 +1,18 @@
+#include <vector>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> sortedElements(vector<vector<int>>& matrix) {
+        vector<int> elems;
+        for (auto& row : matrix) {
+            for (int val : row) {
+                elems.push_back(val);
+            }
+        }
+        sort(elems.begin(), elems.end());
+        return elems;
+    }
+};
