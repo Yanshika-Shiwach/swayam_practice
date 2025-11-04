@@ -1,0 +1,16 @@
+class Solution {
+public:
+    ListNode* searchIterative(ListNode* head, int key) {
+        while (head != nullptr) {
+            if (head->val == key)
+                return head;
+            head = head->next;
+        }
+        return nullptr;
+    }
+    ListNode* searchRecursive(ListNode* head, int key) {
+        if (head == nullptr) return nullptr;
+        if (head->val == key) return head;
+        return searchRecursive(head->next, key);
+    }
+};
