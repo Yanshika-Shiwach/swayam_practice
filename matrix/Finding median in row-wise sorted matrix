@@ -1,0 +1,33 @@
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int countLessEqual(const vector<int>& row, int mid) {
+        int low = 0, high = row.size() - 1;
+        while (low <= high) {
+            int m = low + (high - low) / 2;
+            if (row[m] <= mid) low = m + 1;
+            else high = m - 1;
+        }
+        return low;
+    }
+
+    int findMedian(vector<vector<int>>& matrix) {
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        int low = 1, high = 1e9;
+
+        int desired = (rows * cols + 1) / 2;
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            int place = 0;
+            for (int i = 0; i < rows; i++) {
+                place += countLessEqual(matrix[i], mid);
+            }
+            if (place < desired) low = mid + 1;
+            else high = mid;
+        }
+        return low;
+    }
+};
