@@ -1,0 +1,21 @@
+#include <vector>
+#include <stack>
+using namespace std;
+
+vector<int> smallerOnLeft(vector<int>& arr) {
+    stack<int> st;
+    vector<int> result;
+
+    for (int x : arr) {
+        while (!st.empty() && st.top() >= x) {
+            st.pop();
+        }
+        if (st.empty()) {
+            result.push_back(-1);
+        } else {
+            result.push_back(st.top());
+        }
+        st.push(x);
+    }
+    return result;
+}
