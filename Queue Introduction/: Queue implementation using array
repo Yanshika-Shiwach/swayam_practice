@@ -1,0 +1,27 @@
+class MyQueue {
+public:
+    int *arr;
+    int front, rear, size, cap;
+
+    MyQueue(int capacity = 100005) {
+        cap = capacity;
+        arr = new int[cap];
+        front = 0;
+        rear = 0;
+        size = 0;
+    }
+
+    void push(int x) {
+        if (size == cap) return;
+        arr[rear++] = x;
+        size++;
+    }
+
+    int pop() {
+        if (size == 0)
+            return -1;
+        int val = arr[front++];
+        size--;
+        return val;
+    }
+};
