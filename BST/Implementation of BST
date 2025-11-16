@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+template <typename Key, typename Value>
+class BST {
+    struct Node {
+        Key key;
+        Value val;
+        Node *left, *right;
+        Node(Key k, Value v) : key(k), val(v), left(NULL), right(NULL) {}
+    };
+    Node* root;
+    Node* put(Node* n, Key key, Value val) {
+        if (!n)
+            return new Node(key, val);
+        if (key < n->key)
+            n->left = put(n->left, key, val);
+        else if (key > n->key)
+            n->right = put(n->right, key, val);
+        else
+            n->val = val;
+        return n;
+    }
+    void inorder(Node* n) {
+        if (!n) return;
+        inorder(n->left);
+        cout << n->key << ": " << n->val << endl;
+        inorder(n->right);
+    }
+public:
+    BST() : root(NULL) {}
+    void put(Key key, Value val) {
+        root = put(root, key, val);
+    }
+    void inorderTraversal() {
+        inorder(root);
+    }
+};
+int main() {
+    BST<string, int> bst;
+    bst.put("B", 1);
+    bst.put("R", 2);
+    bst.put("A", 3);
+    bst.put("N", 4);
+    bst.put("C", 5);
+    bst.put("H", 6);
+    bst.put("E", 7);
+    bst.put("S", 8);
+    bst.inorderTraversal();
+    return 0;
+}
