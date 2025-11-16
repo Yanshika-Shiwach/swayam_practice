@@ -1,0 +1,18 @@
+class Solution {
+public:
+    char getMaxOccuringChar(string str) {
+        int freq[26] = {0};
+        for (char ch : str) {
+            freq[ch - 'a']++;
+        }
+        int maxFreq = 0;
+        char res = 'a';
+        for (int i = 0; i < 26; ++i) {
+            if (freq[i] > maxFreq) {
+                maxFreq = freq[i];
+                res = i + 'a';
+            }
+        }
+        return res;
+    }
+};
