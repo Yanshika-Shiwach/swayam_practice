@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int modPow(int a, int k, int mod) {
+        long long res = 1;
+        long long x = a % mod;
+        while (k > 0) {
+            if (k & 1) res = (res * x) % mod;
+            x = (x * x) % mod;
+            k >>= 1;
+        }
+        return (int)res;
+    }
+    int superPow(int a, vector<int>& b) {
+        const int MOD = 1337;
+        a %= MOD;
+        int result = 1;
+        for (int digit : b) {
+            result = modPow(result, 10, MOD) * modPow(a, digit, MOD) % MOD;
+        }
+        return result;
+    }
+};
