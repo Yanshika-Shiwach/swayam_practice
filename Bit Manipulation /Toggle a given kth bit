@@ -1,0 +1,10 @@
+class Solution {
+public:
+    int toggleBits(int N,int L,int R) {
+        int mask = 0;
+        for (int i=L-1;i<=R-1;i++) {
+            mask|=(1<<i);
+        }
+        return N^mask;
+    }
+};
