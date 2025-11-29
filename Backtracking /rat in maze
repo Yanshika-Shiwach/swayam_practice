@@ -1,0 +1,37 @@
+class Solution {
+public:
+    void solve(int x, int y, vector<vector<int>> &m, int n,
+               vector<string> &ans, string &path,
+               vector<vector<int>> &vis) {
+        if (x == n - 1 && y == n - 1) {
+            ans.push_back(path);
+            return;
+        }
+        vis[x][y] = 1;
+        // D, L, R, U
+        int dx[4] = {1, 0, 0, -1};
+        int dy[4] = {0, -1, 1, 0};
+        char dir[4] = {'D', 'L', 'R', 'U'};
+        for (int k = 0; k < 4; k++) {
+            int nx = x + dx[k];
+            int ny = y + dy[k];
+
+            if (nx >= 0 && ny >= 0 && nx < n && ny < n &&
+                !vis[nx][ny] && m[nx][ny] == 1) {
+                path.push_back(dir[k]);
+                solve(nx, ny, m, n, ans, path, vis);
+                path.pop_back();
+            }
+        }
+        vis[x][y] = 0;
+    }
+    vector<string> findPath(vector<vector<int>> &m, int n) {
+        vector<string> ans;
+        if (m[0][0] == 0) return ans;
+        vector<vector<int>> vis(n, vector<int>(n, 0));
+        string path;
+        solve(0, 0, m, n, ans, path, vis);
+        sort(ans.begin(), ans.end());
+        return ans;
+    }
+};
