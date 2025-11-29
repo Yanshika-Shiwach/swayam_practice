@@ -1,0 +1,12 @@
+#include <bits/stdc++.h>
+using namespace std;
+vector<int>buildMaxHeap(vector<int> &arr) {
+    priority_queue<int>pq;
+    for(int x : arr)pq.push(x);
+    vector<int>heap;
+    while(!pq.empty()){
+        heap.push_back(pq.top());
+        pq.pop();
+    }
+    return heap;
+}
