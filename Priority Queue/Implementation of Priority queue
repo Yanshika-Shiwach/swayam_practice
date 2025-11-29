@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+    priority_queue<int,vector<int>,greater<int>>pq;
+    void insert(int x){
+        pq.push(x);
+    }
+    bool find(int x){
+      priority_queue<int, vector<int>,greater<int>>temp=pq;
+        while(!temp.empty()){
+            if(temp.top()==x)return true;
+            temp.pop();
+        }
+        return false;
+    }
+    int getMin(){
+        if(pq.empty())return -1;
+        return pq.top();
+    }
+    int removeMin(){
+        if(pq.empty())return -1;
+        int x=pq.top();
+        pq.pop();
+        return x;
+    }
+};
