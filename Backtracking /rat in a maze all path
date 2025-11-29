@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int n, m;
+    vector<vector<int>> dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+    vectorhar> dirChar = {'D', 'U', 'R', 'L'};
+    void dfs(int r, int c, vector<vector<int>> &maze,
+             vector<vector<int>> &vis, string &path,
+             vector<string> &ans, int dr, int dc) {
+        if (r == dr && c == dc) {
+            ans.push_back(path);
+            return;
+        }
+        vis[r][c] = 1;
+        for (int k = 0; k < 4; k++) {
+            int nr = r + dirs[k][0];
+            int nc = c + dirs[k][1];
+            if (nr >= 0 && nr < n && nc >= 0 && nc < m &&
+                maze[nr][nc] == 0 && !vis[nr][nc]) {
+                path.push_back(dirChar[k]);
+                dfs(nr, nc, maze, vis, path, ans, dr, dc);
+                path.pop_back();
+            }
+        }
+        vis[r][c] = 0;
+    }
+    vector<string> allPaths(vector<vector<int>> &maze,vector<int> &star,vector<int> &dest) {
+        n = maze.size();
+        m = maze[0].size();
+        vector<vector<int>> vis(n, vector<int>(m, 0));
+        vector<string> ans;
+        string path;
+        if (maze[start[0]][start[1]] == 1 || maze[dest[0]][dest[1]] == 1)
+            return ans;
+        dfs(start[0], start[1], maze, vis, path, ans, dest[0], dest[1]);
+        return ans;
+    }
+};
