@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int n, m;
+    int dx[4] = {1, -1, 0, 0};
+    int dy[4] = {0, 0, 1, -1};
+    char dir[4] = {'D', 'U', 'R', 'L'};
+    void dfs(int x, int y,
+             vector<vector<int>> &grid,
+             vector<vector<int>> &vis,
+             string &path,
+             int len,
+             int &bestLen,
+             string &bestPath) {
+        if (x == n - 1 && y == m - 1) {
+            if (len > bestLen) {
+                bestLen = len;
+                bestPath = path;
+            }
+            return;
+        }
+        vis[x][y] = 1;
+        for (int k = 0; k < 4; k++) {
+            int nx = x + dx[k];
+            int ny = y + dy[k];
+            if (nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
+            if (grid[nx][ny] == 1 || vis[nx][ny]) continue;
+            path.push_back(dir[k]);
+            dfs(nx, ny, grid, vis, path, len + 1, bestLen, bestPath);
+            path.pop_back();
+        }
+        vis[x][y] = 0;
+    }
+    string longestPath(vector<vector<int>> &grid) {
+        n = grid.size();
+        m = grid[0].size();
+        if (grid[0][0] == 1 || grid[n-1][m-1] == 1) return "";
+        vector<vector<int>> vis(n, vector<int>(m, 0));
+        string path, bestPath;
+        int bestLen = -1;
+        dfs(0, 0, grid, vis, path, 0, bestLen, bestPath);
+        return bestPath;   // string of 'D','U','R','L'; empty = no path
+    }
+};
