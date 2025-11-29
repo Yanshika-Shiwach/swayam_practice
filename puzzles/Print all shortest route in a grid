@@ -1,0 +1,58 @@
+class Solution {
+public:
+    int n, m;
+    int dx[4] = {1, -1, 0, 0};
+    int dy[4] = {0, 0, 1, -1};
+    char dir[4] = {'D', 'U', 'R', 'L'};
+    void bfs(vector<vector<int>> &grid, vector<vector<int>> &dist) {
+        queue<pair<int,int>> q;
+        dist.assign(n, vector<int>(m, INT_MAX));
+        if (grid[0][0] == 1) return;
+        dist[0][0] = 0;
+        q.push({0, 0});
+        while (!q.empty()) {
+            auto [x, y] = q.front();
+            q.pop();
+            for (int k = 0; k < 4; k++) {
+                int nx = x + dx[k];
+                int ny = y + dy[k];
+                if (nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
+                if (grid[nx][ny] == 1) continue;
+                if (dist[nx][ny] > dist[x][y] + 1) {
+                    dist[nx][ny] = dist[x][y] + 1;
+                    q.push({nx, ny});
+                }
+            }
+        }
+    }
+    void backtrack(int x, int y,vector<vector<int>> &dist,vector<string> &ans, string &path) {
+        if (x == 0 && y == 0) {
+            string rev = path;
+            reverse(rev.begin(), rev.end());
+            ans.push_back(rev);
+            return;
+        }
+        int d = dist[x][y];
+        for (int k = 0; k < 4; k++) {
+            int px = x - dx[k];
+            int py = y - dy[k];
+            if (px < 0 || py < 0 || px >= n || py >= m) continue;
+            if (dist[px][py] == d - 1) {
+                path.push_back(dir[k]);
+                backtrack(px, py, dist, ans, path);
+                path.pop_back();
+            }
+        }
+    }
+    vector<string> allShortestPaths(vector<vector<int>> &grid) {
+        n = grid.size();
+        m = grid[0].size();
+        vector<vector<int>> dist;
+        bfs(grid, dist);
+        vector<string> ans;
+        if (dist[n-1][m-1] == INT_MAX) return ans;
+        string path;
+        backtrack(n-1, m-1, dist, ans, path);
+        return ans;
+    }
+};
