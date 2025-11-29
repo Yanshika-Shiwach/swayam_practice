@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool helper(int idx, vector<int> &a, int target) {
+        if (target == 0) return true;
+        if (idx == (int)a.size() || target < 0) return false;
+        if (helper(idx + 1, a, target - a[idx])) return true; // include
+        if (helper(idx + 1, a, target)) return true;          // exclude
+        return false;
+    }
+    bool subsetSum(vector<int> &a, int target) {
+        return helper(0, a, target);
+    }
+};
