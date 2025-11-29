@@ -1,0 +1,15 @@
+class Solution {
+public:
+    long long countBits(long long n) {
+        if (n == 0) return 0;
+        long long x = 0;
+        while ((1LL << (x + 1)) <= n) x++;
+        long long fullBits = x * (1LL << (x - 1));
+        long long msbBits = n - (1LL << x) + 1;
+        long long remaining = n - (1LL << x);
+        return fullBits + msbBits + countBits(remaining);
+    }
+    long long countBits(long long n, int) {
+        return countBits(n);
+    }
+};
